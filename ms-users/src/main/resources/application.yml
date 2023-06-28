@@ -1,0 +1,35 @@
+server:
+  servlet:
+    context-path: /api/v1/
+  port: 8092
+spring:
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: http://localhost:8092/login/oauth2/code/keycloak
+        registration:
+          keycloak:
+            client-secret: kDYGM9e0mpPsdQRlyMSg6tDQ92cJl9UO
+            client-id: ms-partial-client
+            authorization-grant-type: client_credentials
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/parcial-realm
+  application:
+    name: ms-users
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+keycloak:
+  serverUrl: http://localhost:8080/
+  realm: parcial-realm
+  clientId: ms-partial-client
+  clientSecret: kDYGM9e0mpPsdQRlyMSg6tDQ92cJl9UO
+#  user: admin
+#  password: admin
